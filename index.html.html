@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>KrishiMitra – Smart Agriculture Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<style>
+:root {
+  --gd: #1a3a1a; --gm: #2d6a2d; --gb: #4caf50;
+  --gl: #a8d5a2; --gold: #d4a017; --cream: #f5f0e8;
+  --white: #ffffff; --text: #1a1a1a; --muted: #5a6a5a;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);}
+ 
+/* ── TICKER ── */
+.ticker-wrap{background:var(--gold);overflow:hidden;height:36px;display:flex;align-items:center;}
+.ticker-label{background:var(--gd);color:#fff;font-size:.75rem;font-weight:700;padding:0 18px;height:100%;display:flex;align-items:center;white-space:nowrap;letter-spacing:1px;z-index:2;}
+.ticker-track{display:flex;animation:tickerScroll 35s linear infinite;white-space:nowrap;}
+.ticker-track span{font-size:.78rem;font-weight:600;color:#1a1a1a;padding:0 40px;}
+@keyframes tickerScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+ 
+/* ── HEADER ── */
+header{position:fixed;top:36px;left:0;right:0;z-index:998;background:rgba(26,58,26,0.97);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:70px;border-bottom:2px solid var(--gold);}
+.logo{font-family:'Playfair Display',serif;font-size:1.6rem;color:#fff;letter-spacing:1px;}
+.logo span{color:var(--gold);}
+nav a{color:rgba(255,255,255,.85);text-decoration:none;margin-left:24px;font-size:.88rem;font-weight:500;letter-spacing:.4px;transition:color .25s;}
+nav a:hover{color:var(--gold);}
+ 
+/* ── HERO ── */
+#home{min-height:100vh;background:linear-gradient(135deg,#0f2a0f 0%,#1e4a1e 50%,#2d6a2d 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:160px 5% 80px;position:relative;overflow:hidden;}
+#home::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(76,175,80,.15),transparent 70%);top:-150px;right:-150px;}
+#home::after{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(212,160,23,.1),transparent 70%);bottom:-100px;left:-100px;}
+.hero-badge{display:inline-block;background:rgba(212,160,23,.18);color:var(--gold);font-size:.8rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;border:1px solid var(--gold);border-radius:50px;padding:6px 20px;margin-bottom:24px;animation:fadeDown .8s ease both;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5.5vw,4.2rem);color:#fff;line-height:1.15;margin-bottom:20px;animation:fadeDown .9s .1s ease both;}
+.hero-title em{color:var(--gold);font-style:normal;}
+.hero-sub{color:rgba(255,255,255,.72);font-size:1.05rem;max-width:620px;line-height:1.7;margin-bottom:40px;animation:fadeDown .9s .2s ease both;}
+.btn-row{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;animation:fadeDown .9s .3s ease both;}
+.btn-primary-k{background:var(--gold);color:#1a1a1a;font-weight:700;padding:14px 34px;border-radius:50px;border:none;cursor:pointer;font-size:.95rem;letter-spacing:.5px;transition:.3s;text-decoration:none;display:inline-block;}
+.btn-primary-k:hover{background:#e5b528;transform:translateY(-2px);box-shadow:0 8px 24px rgba(212,160,23,.4);}
+.btn-outline-k{background:transparent;color:#fff;font-weight:600;padding:13px 34px;border-radius:50px;border:2px solid rgba(255,255,255,.4);cursor:pointer;font-size:.95rem;transition:.3s;text-decoration:none;display:inline-block;}
+.btn-outline-k:hover{border-color:#fff;background:rgba(255,255,255,.08);transform:translateY(-2px);}
+ 
+/* Slideshow */
+.slideshow{width:90%;max-width:900px;border-radius:20px;overflow:hidden;margin-top:56px;box-shadow:0 30px 80px rgba(0,0,0,.5);border:2px solid rgba(255,255,255,.1);position:relative;height:300px;animation:fadeDown 1s .4s ease both;}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1s;}
+.slide.active{opacity:1;}
+.slide img{width:100%;height:100%;object-fit:cover;}
+.slide-caption{position:absolute;bottom:0;left:0;right:0;padding:20px 28px;background:linear-gradient(to top,rgba(0,0,0,.8),transparent);color:#fff;font-size:1rem;font-weight:600;}
+.slide-dots{position:absolute;bottom:14px;right:20px;display:flex;gap:8px;}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer;transition:.3s;}
+.dot.active{background:var(--gold);width:22px;border-radius:4px;}
+ 
+/* ── SECTIONS SHARED ── */
+section{padding:90px 5%;}
+.section-label{font-size:.75rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gm);margin-bottom:10px;}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.2;color:var(--gd);margin-bottom:18px;}
+.section-desc{color:var(--muted);font-size:1rem;line-height:1.75;max-width:640px;}
+ 
+/* ── ABOUT ── */
+#about{background:#fff;}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:50px;}
+.about-img{border-radius:20px;overflow:hidden;position:relative;}
+.about-img img{width:100%;display:block;border-radius:20px;}
+.about-img::after{content:'';position:absolute;top:18px;left:18px;right:-18px;bottom:-18px;border:2px solid var(--gb);border-radius:20px;z-index:-1;}
+.stat-row{display:flex;gap:24px;margin-top:34px;flex-wrap:wrap;}
+.stat-box{background:var(--cream);border-radius:14px;padding:20px 24px;flex:1;min-width:110px;}
+.stat-num{font-family:'Playfair Display',serif;font-size:2rem;color:var(--gm);font-weight:900;}
+.stat-lbl{font-size:.78rem;color:var(--muted);margin-top:4px;font-weight:500;}
+ 
+/* ── CROP CARDS ── */
+#crops{background:linear-gradient(180deg,#e8f5e9,#f5f0e8);}
+.crops-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:22px;margin-top:50px;}
+.crop-card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.07);transition:.3s;border:1px solid rgba(76,175,80,.15);cursor:pointer;}
+.crop-card:hover{transform:translateY(-8px);box-shadow:0 16px 40px rgba(45,106,45,.22);}
+.crop-card img{width:100%;height:155px;object-fit:cover;transition:.4s;}
+.crop-card:hover img{transform:scale(1.05);}
+.crop-info{padding:16px;}
+.crop-name{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--gd);font-weight:700;}
+.crop-season{font-size:.75rem;color:var(--gold);font-weight:600;margin:4px 0 8px;text-transform:uppercase;letter-spacing:1px;}
+.crop-desc{font-size:.82rem;color:var(--muted);line-height:1.55;}
+.crop-click-hint{font-size:.72rem;color:var(--gb);font-weight:600;margin-top:8px;display:flex;align-items:center;gap:4px;}
+ 
+/* ── CROP MODAL ── */
+.crop-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s;}
+.crop-modal-overlay.open{opacity:1;pointer-events:all;}
+.crop-modal{background:#fff;border-radius:24px;max-width:860px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 40px 100px rgba(0,0,0,.4);transform:translateY(30px);transition:transform .3s;}
+.crop-modal-overlay.open .crop-modal{transform:translateY(0);}
+.modal-hero{position:relative;height:280px;overflow:hidden;border-radius:24px 24px 0 0;}
+.modal-hero img{width:100%;height:100%;object-fit:cover;}
+.modal-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.75) 0%,transparent 50%);}
+.modal-hero-title{position:absolute;bottom:24px;left:30px;color:#fff;}
+.modal-hero-title h2{font-family:'Playfair Display',serif;font-size:2rem;}
+.modal-hero-title .badge-season{background:var(--gold);color:#1a1a1a;font-size:.75rem;font-weight:700;padding:4px 14px;border-radius:50px;display:inline-block;margin-bottom:8px;}
+.modal-close{position:absolute;top:16px;right:18px;background:rgba(255,255,255,.2);border:none;color:#fff;font-size:1.4rem;width:38px;height:38px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);transition:.2s;}
+.modal-close:hover{background:rgba(255,255,255,.4);}
+.modal-body{padding:32px 34px 36px;}
+.modal-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;}
+.tab-btn{background:var(--cream);border:1.5px solid #dde8dd;color:var(--gd);font-size:.82rem;font-weight:600;padding:8px 18px;border-radius:50px;cursor:pointer;transition:.25s;}
+.tab-btn.active{background:var(--gm);color:#fff;border-color:var(--gm);}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;margin-bottom:24px;}
+.info-card{background:var(--cream);border-radius:14px;padding:16px 18px;}
+.info-card .ic-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);}
+.info-card .ic-val{font-size:.98rem;font-weight:600;color:var(--gd);margin-top:5px;}
+.modal-para{font-size:.92rem;color:#444;line-height:1.75;margin-bottom:18px;}
+.modal-para strong{color:var(--gd);}
+.modal-list{list-style:none;padding:0;}
+.modal-list li{font-size:.88rem;color:#444;line-height:1.6;padding:6px 0;border-bottom:1px dashed #e0ebe0;display:flex;gap:10px;}
+.modal-list li::before{content:"🌿";flex-shrink:0;}
+.modal-tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}
+.modal-tag{background:#e8f5e9;color:var(--gm);font-size:.78rem;font-weight:600;padding:5px 14px;border-radius:50px;}
+.npk-bar{margin-bottom:14px;}
+.npk-bar .npk-label{font-size:.8rem;font-weight:600;color:var(--gd);margin-bottom:4px;}
+.npk-bar .bar-wrap{background:#e0ebe0;border-radius:50px;height:10px;}
+.npk-bar .bar-fill{height:10px;border-radius:50px;background:linear-gradient(90deg,var(--gm),var(--gb));}
+ 
+/* ── WEATHER STRIP ── */
+#weather-strip{background:linear-gradient(90deg,var(--gd),var(--gm));padding:26px 5%;display:flex;gap:24px;flex-wrap:wrap;align-items:center;}
+.w-title{color:var(--gold);font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;flex:1;min-width:150px;}
+.w-card{background:rgba(255,255,255,.1);border-radius:12px;padding:14px 22px;display:flex;gap:12px;align-items:center;}
+.w-icon{font-size:1.9rem;}
+.w-temp{color:#fff;font-size:1.3rem;font-weight:700;}
+.w-city{color:rgba(255,255,255,.7);font-size:.78rem;}
+.w-humid{color:rgba(255,255,255,.6);font-size:.72rem;}
+ 
+/* ── SERVICES ── */
+#services{background:#fff;}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:26px;margin-top:50px;}
+.service-card{border-radius:20px;padding:34px 28px;background:var(--cream);border:1px solid transparent;transition:.35s;position:relative;overflow:hidden;}
+.service-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--gb),var(--gm));opacity:0;transition:.35s;}
+.service-card:hover::before{opacity:1;}
+.service-card:hover{transform:translateY(-4px);}
+.service-card:hover .svc-title,.service-card:hover .svc-desc,.service-card:hover .svc-icon{color:#fff!important;}
+.service-card>*{position:relative;z-index:1;}
+.svc-icon{font-size:2.3rem;margin-bottom:16px;display:block;}
+.svc-title{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--gd);font-weight:700;margin-bottom:10px;}
+.svc-desc{font-size:.87rem;color:var(--muted);line-height:1.7;}
+.svc-btn{display:inline-block;margin-top:18px;background:var(--gm);color:#fff;padding:8px 20px;border-radius:50px;font-size:.8rem;font-weight:600;cursor:pointer;border:none;transition:.3s;text-decoration:none;}
+.service-card:hover .svc-btn{background:rgba(255,255,255,.25);}
+ 
+/* ── FORMS ── */
+.form-wrap{background:#fff;border-radius:24px;padding:46px 44px;box-shadow:0 8px 40px rgba(0,0,0,.08);max-width:520px;margin:50px auto 0;border-top:4px solid var(--gb);}
+.form-title{font-family:'Playfair Display',serif;font-size:1.75rem;color:var(--gd);margin-bottom:7px;}
+.form-sub{color:var(--muted);font-size:.87rem;margin-bottom:26px;}
+.form-group{margin-bottom:18px;}
+.form-group label{display:block;font-size:.82rem;font-weight:600;color:var(--gd);margin-bottom:6px;letter-spacing:.3px;}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:12px 15px;border-radius:10px;border:1.5px solid #dde8dd;background:#fafff8;font-size:.9rem;font-family:'DM Sans',sans-serif;color:var(--text);outline:none;transition:.25s;}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--gb);box-shadow:0 0 0 3px rgba(76,175,80,.15);}
+.form-group textarea{resize:vertical;min-height:105px;}
+.err{color:#c0392b;font-size:.77rem;margin-top:5px;display:none;}
+.btn-submit{width:100%;padding:14px;background:linear-gradient(90deg,var(--gm),var(--gb));color:#fff;font-size:1rem;font-weight:700;border:none;border-radius:12px;cursor:pointer;letter-spacing:.5px;transition:.3s;margin-top:5px;}
+.btn-submit:hover{opacity:.9;transform:translateY(-2px);box-shadow:0 8px 24px rgba(45,106,45,.35);}
+.success-msg{background:#e8f5e9;color:#2d6a2d;padding:13px 17px;border-radius:10px;font-weight:600;font-size:.87rem;border-left:4px solid var(--gb);display:none;margin-top:14px;}
+ 
+/* ── FEEDBACK CARDS ── */
+.feedback-reviews{margin-top:54px;}
+.reviews-title{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--gd);margin-bottom:24px;text-align:center;}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px;}
+.review-card{background:#fff;border-radius:18px;padding:24px;box-shadow:0 4px 20px rgba(0,0,0,.07);border-left:4px solid var(--gb);position:relative;animation:fadeIn .5s ease;}
+.review-card .rv-quote{font-size:2rem;color:var(--gb);line-height:1;margin-bottom:6px;}
+.review-card .rv-msg{font-size:.88rem;color:#444;line-height:1.65;font-style:italic;}
+.review-card .rv-meta{margin-top:16px;display:flex;align-items:center;gap:12px;}
+.rv-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gm),var(--gb));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:1rem;flex-shrink:0;}
+.rv-name{font-weight:600;font-size:.88rem;color:var(--gd);}
+.rv-date{font-size:.72rem;color:var(--muted);}
+.rv-stars{color:var(--gold);font-size:.85rem;margin-top:2px;}
+.rv-new-badge{position:absolute;top:14px;right:16px;background:var(--gold);color:#1a1a1a;font-size:.65rem;font-weight:700;padding:3px 10px;border-radius:50px;letter-spacing:.5px;}
+ 
+/* ── FOOTER ── */
+footer{background:var(--gd);color:rgba(255,255,255,.6);text-align:center;padding:36px 5%;border-top:2px solid var(--gold);}
+.f-logo{font-family:'Playfair Display',serif;font-size:1.5rem;color:#fff;margin-bottom:10px;}
+.f-logo span{color:var(--gold);}
+.f-links{display:flex;gap:18px;justify-content:center;margin:14px 0;flex-wrap:wrap;}
+.f-links a{color:rgba(255,255,255,.6);text-decoration:none;font-size:.82rem;transition:.2s;}
+.f-links a:hover{color:var(--gold);}
+ 
+#login{background:linear-gradient(135deg,#e8f5e9,#f5f0e8);}
+#register{background:#fff;}
+#feedback{background:linear-gradient(135deg,#e8f5e9,#f5f0e8);}
+ 
+@keyframes fadeDown{from{opacity:0;transform:translateY(-24px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+@media(max-width:768px){
+  .about-grid{grid-template-columns:1fr;gap:40px;}
+  .form-wrap{padding:30px 20px;}
+  nav a{margin-left:10px;font-size:.78rem;}
+  header{top:36px;}
+}
+</style>
+</head>
+<body>
+ 
+<!-- ── LIVE TICKER ── -->
+<div class="ticker-wrap" style="position:fixed;top:0;left:0;right:0;z-index:999;">
+  <div class="ticker-label">🔴 LIVE</div>
+  <div class="ticker-track" id="ticker">
+    <span>🌾 Wheat (Jodhpur Mandi): ₹2,275/quintal &nbsp;|</span>
+    <span>🍅 Tomato (Pune APMC): ₹1,840/quintal &nbsp;|</span>
+    <span>🌽 Maize (Gulbarga): ₹2,050/quintal &nbsp;|</span>
+    <span>🧅 Onion (Lasalgaon): ₹1,450/quintal &nbsp;|</span>
+    <span>🥔 Potato (Agra): ₹1,200/quintal &nbsp;|</span>
+    <span>🌾 Rice Basmati (Delhi): ₹4,600/quintal &nbsp;|</span>
+    <span>🌱 Soybean (Indore): ₹4,300/quintal &nbsp;|</span>
+    <span>☀️ Weather Alert: Pre-monsoon showers expected in Gujarat & Maharashtra this week &nbsp;|</span>
+    <span>📢 PM-KISAN 20th Instalment: ₹2,000 credited to 9.8 Cr farmers &nbsp;|</span>
+    <span>🌾 Wheat (Jodhpur Mandi): ₹2,275/quintal &nbsp;|</span>
+    <span>🍅 Tomato (Pune APMC): ₹1,840/quintal &nbsp;|</span>
+    <span>🌽 Maize (Gulbarga): ₹2,050/quintal &nbsp;|</span>
+    <span>🧅 Onion (Lasalgaon): ₹1,450/quintal &nbsp;|</span>
+    <span>🥔 Potato (Agra): ₹1,200/quintal &nbsp;|</span>
+    <span>🌾 Rice Basmati (Delhi): ₹4,600/quintal &nbsp;|</span>
+    <span>🌱 Soybean (Indore): ₹4,300/quintal &nbsp;|</span>
+    <span>☀️ Weather Alert: Pre-monsoon showers expected in Gujarat & Maharashtra &nbsp;|</span>
+    <span>📢 PM-KISAN 20th Instalment: ₹2,000 credited to 9.8 Cr farmers &nbsp;|</span>
+  </div>
+</div>
+ 
+<!-- ── HEADER ── -->
+<header>
+  <div class="logo">🌿 Krishi<span>Mitra</span></div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#login">Login</a>
+    <a href="#register">Register</a>
+    <a href="#feedback">Feedback</a>
+  </nav>
+</header>
+ 
+<!-- ── HOME ── -->
+<section id="home">
+  <div class="hero-badge">🌾 Smart Agriculture Portal – India's #1 Farmer Platform</div>
+  <h1 class="hero-title">Empowering Farmers with <em>Smart Technology</em></h1>
+  <p class="hero-sub">KrishiMitra connects 2.4 million farmers across 19 states with real-time crop advisory, live mandi prices, weather forecasts, and government scheme support — all in one place.</p>
+  <div class="btn-row">
+    <a href="#crops" class="btn-primary-k">🌾 Explore Crops</a>
+    <a href="#register" class="btn-outline-k">Join Free Today</a>
+  </div>
+  <div class="slideshow" id="slideshow">
+    <div class="slide active">
+      <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=900&q=80" alt="Wheat"/>
+      <div class="slide-caption">🌾 Golden wheat fields — Punjab's pride at harvest season</div>
+    </div>
+    <div class="slide">
+      <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=900&q=80" alt="Vegetable Farming"/>
+      <div class="slide-caption">🥬 Smart vegetable farming with drip irrigation technology</div>
+    </div>
+    <div class="slide">
+      <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=900&q=80" alt="Sunrise Farm"/>
+      <div class="slide-caption">🌅 A new dawn for Indian agriculture — productivity meets sustainability</div>
+    </div>
+    <div class="slide">
+      <img src="https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=900&q=80" alt="Tractor"/>
+      <div class="slide-caption">🚜 Modern farm machinery increasing output 3× across India</div>
+    </div>
+    <div class="slide">
+      <img src="https://images.unsplash.com/photo-1560493676-04071c5f467b?w=900&q=80" alt="Farmers"/>
+      <div class="slide-caption">👨‍🌾 Farmers connecting with advisors through KrishiMitra digital tools</div>
+    </div>
+    <div class="slide-dots" id="dots"></div>
+  </div>
+</section>
+ 
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="about-grid">
+    <div>
+      <div class="section-label">About KrishiMitra</div>
+      <h2 class="section-title">India's Trusted Farming Companion</h2>
+      <p class="section-desc">KrishiMitra is India's leading Smart Agriculture platform serving over <strong>2.4 million farmers</strong> across 19 states. Launched in 2019, we have empowered smallholder farmers by bridging the gap between traditional farming practices and modern agricultural science.</p>
+      <p class="section-desc" style="margin-top:14px;">According to the <strong>India Agriculture Report 2024</strong>, farmers using digital advisory platforms see an average <strong>28% increase in crop yield</strong> and a <strong>19% reduction in input costs</strong>. KrishiMitra is at the forefront of this transformation — offering real-time Mandi prices from 2,700+ APMCs, crop-specific AI advisory, soil health cards, and direct access to PM-KISAN, PMFBY and KCC schemes.</p>
+      <p class="section-desc" style="margin-top:14px;">India has <strong>146.45 million hectares</strong> of cultivable land and <strong>54.6% of the population</strong> engaged in agriculture (Census 2021). KrishiMitra's mission is to make every farmer digitally equipped, financially supported, and market-connected.</p>
+      <div class="stat-row">
+        <div class="stat-box"><div class="stat-num">2.4M+</div><div class="stat-lbl">Registered Farmers</div></div>
+        <div class="stat-box"><div class="stat-num">19</div><div class="stat-lbl">States Covered</div></div>
+        <div class="stat-box"><div class="stat-num">2,700+</div><div class="stat-lbl">APMC Mandis Linked</div></div>
+        <div class="stat-box"><div class="stat-num">28%</div><div class="stat-lbl">Avg. Yield Increase</div></div>
+      </div>
+    </div>
+    <div class="about-img">
+      <img src="https://images.unsplash.com/photo-1560493676-04071c5f467b?w=600&q=80" alt="Farmer"/>
+    </div>
+  </div>
+</section>
+ 
+<!-- ── CROPS & VEGETABLES ── -->
+<section id="crops">
+  <div class="section-label">Crop & Vegetable Advisory</div>
+  <h2 class="section-title">Click any Crop to See Full Details 👇</h2>
+  <p class="section-desc">Tap a crop card to explore its full growing guide — soil, climate, irrigation, fertilizers, pests, harvest & market price.</p>
+  <div class="crops-grid" id="cropsGrid">
+    <!-- Cards injected by JS -->
+  </div>
+</section>
+ 
+<!-- ── WEATHER STRIP ── -->
+<div id="weather-strip">
+  <div class="w-title">🌤️ Live Farm Weather — May 7, 2026</div>
+  <div class="w-card"><div class="w-icon">⛅</div><div><div class="w-temp">34°C</div><div class="w-city">Ahmedabad</div><div class="w-humid">Humidity 58% | Wind 14 km/h</div></div></div>
+  <div class="w-card"><div class="w-icon">🌧️</div><div><div class="w-temp">29°C</div><div class="w-city">Pune</div><div class="w-humid">Humidity 72% | Rain likely</div></div></div>
+  <div class="w-card"><div class="w-icon">☀️</div><div><div class="w-temp">41°C</div><div class="w-city">Jaipur</div><div class="w-humid">Humidity 28% | Hot & dry</div></div></div>
+  <div class="w-card"><div class="w-icon">🌩️</div><div><div class="w-temp">27°C</div><div class="w-city">Bhopal</div><div class="w-humid">Humidity 68% | Thunderstorm</div></div></div>
+  <div class="w-card"><div class="w-icon">🌤️</div><div><div class="w-temp">32°C</div><div class="w-city">Ludhiana</div><div class="w-humid">Humidity 52% | Mild breeze</div></div></div>
+</div>
+ 
+<!-- ── SERVICES ── -->
+<section id="services">
+  <div class="section-label">Our Services</div>
+  <h2 class="section-title">Everything a Farmer Needs</h2>
+  <p class="section-desc">From soil testing to live Mandi prices, KrishiMitra covers every aspect of modern farming.</p>
+  <div class="services-grid">
+    <div class="service-card"><span class="svc-icon">🔬</span><div class="svc-title">Soil Health Advisory</div><div class="svc-desc">Soil testing recommendations, nutrient management plans, pH correction guidance, and micro-nutrient deficiency detection for your farmland.</div><button class="svc-btn">Learn More →</button></div>
+    <div class="service-card"><span class="svc-icon">🌦️</span><div class="svc-title">Hyperlocal Weather</div><div class="svc-desc">7-day block-level weather forecasts, rainfall alerts, frost warnings, and optimal sowing-window advisories tailored to your taluka.</div><button class="svc-btn">Check Weather →</button></div>
+    <div class="service-card"><span class="svc-icon">💰</span><div class="svc-title">Live Mandi Prices</div><div class="svc-desc">Real-time commodity prices from 2,700+ APMCs. Seasonal trend charts, MSP comparison, and "best time to sell" AI recommendations.</div><button class="svc-btn">View Prices →</button></div>
+    <div class="service-card"><span class="svc-icon">🚁</span><div class="svc-title">Drone Crop Monitoring</div><div class="svc-desc">Satellite NDVI analysis, drone spray booking, and early pest detection using multispectral imaging at ₹199/acre.</div><button class="svc-btn">Book Drone →</button></div>
+    <div class="service-card"><span class="svc-icon">📋</span><div class="svc-title">Government Schemes</div><div class="svc-desc">PM-KISAN, PMFBY Fasal Bima, KCC, e-NAM, Soil Health Card — eligibility checker and one-click application support.</div><button class="svc-btn">Check Schemes →</button></div>
+    <div class="service-card"><span class="svc-icon">🌱</span><div class="svc-title">Organic Farming Guide</div><div class="svc-desc">Organic transition roadmaps, vermicompost, jeevamrit, bio-pesticide preparation, and PGS-India certification guidance.</div><button class="svc-btn">Go Organic →</button></div>
+  </div>
+</section>
+ 
+<!-- ── LOGIN ── -->
+<section id="login">
+  <div class="section-label">Farmer Login</div>
+  <h2 class="section-title" style="text-align:center;">Welcome Back 👋</h2>
+  <div class="form-wrap">
+    <div class="form-title">Login to KrishiMitra</div>
+    <div class="form-sub">Access your personalised farm dashboard</div>
+    <div class="form-group"><label>Username / Mobile Number</label><input type="text" id="login-user" placeholder="Enter your username or mobile"/><div class="err" id="err-luser">⚠ Username cannot be empty.</div></div>
+    <div class="form-group"><label>Password</label><input type="password" id="login-pass" placeholder="Enter your password"/><div class="err" id="err-lpass">⚠ Password must be at least 6 characters.</div></div>
+    <button class="btn-submit" onclick="validateLogin()">Login →</button>
+    <div class="success-msg" id="login-success">✅ Login successful! Redirecting to your dashboard...</div>
+  </div>
+</section>
+ 
+<!-- ── REGISTER ── -->
+<section id="register">
+  <div class="section-label">New Farmer Registration</div>
+  <h2 class="section-title" style="text-align:center;">Create Your Account 🌱</h2>
+  <div class="form-wrap">
+    <div class="form-title">Register on KrishiMitra</div>
+    <div class="form-sub">Join millions of farmers across India — free forever</div>
+    <div class="form-group"><label>Full Name</label><input type="text" id="reg-name" placeholder="Enter your full name"/><div class="err" id="err-rname">⚠ Name cannot be empty.</div></div>
+    <div class="form-group"><label>Email Address</label><input type="email" id="reg-email" placeholder="Enter your email"/><div class="err" id="err-remail">⚠ Enter a valid email address.</div></div>
+    <div class="form-group"><label>State</label>
+      <select id="reg-state">
+        <option value="">-- Select Your State --</option>
+        <option>Gujarat</option><option>Maharashtra</option><option>Punjab</option>
+        <option>Uttar Pradesh</option><option>Rajasthan</option><option>Madhya Pradesh</option>
+        <option>Haryana</option><option>Karnataka</option><option>Andhra Pradesh</option>
+        <option>Tamil Nadu</option><option>Telangana</option><option>Bihar</option>
+        <option>West Bengal</option><option>Odisha</option><option>Chhattisgarh</option>
+      </select>
+      <div class="err" id="err-rstate">⚠ Please select your state.</div>
+    </div>
+    <div class="form-group"><label>Password</label><input type="password" id="reg-pass" placeholder="Create a password (min 6 chars)"/><div class="err" id="err-rpass">⚠ Password must be at least 6 characters.</div></div>
+    <div class="form-group"><label>Confirm Password</label><input type="password" id="reg-cpass" placeholder="Re-enter your password"/><div class="err" id="err-rcpass">⚠ Passwords do not match.</div></div>
+    <button class="btn-submit" onclick="validateRegister()">Create Account →</button>
+    <div class="success-msg" id="reg-success">✅ Registration successful! Welcome to KrishiMitra 🌿</div>
+  </div>
+</section>
+ 
+<!-- ── FEEDBACK ── -->
+<section id="feedback">
+  <div class="section-label">Contact & Feedback</div>
+  <h2 class="section-title" style="text-align:center;">We'd Love to Hear from You 💬</h2>
+  <div class="form-wrap">
+    <div class="form-title">Send Feedback</div>
+    <div class="form-sub">Your suggestions help us serve farmers better</div>
+    <div class="form-group"><label>Your Name</label><input type="text" id="fb-name" placeholder="Enter your name"/><div class="err" id="err-fbname">⚠ Name cannot be empty.</div></div>
+    <div class="form-group"><label>Email Address</label><input type="email" id="fb-email" placeholder="Enter your email"/><div class="err" id="err-fbemail">⚠ Enter a valid email address.</div></div>
+    <div class="form-group"><label>Rating</label>
+      <select id="fb-rating">
+        <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+        <option value="4">⭐⭐⭐⭐ Very Good</option>
+        <option value="3">⭐⭐⭐ Good</option>
+        <option value="2">⭐⭐ Fair</option>
+        <option value="1">⭐ Poor</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Message</label><textarea id="fb-msg" placeholder="Write your feedback, suggestions or queries here..."></textarea><div class="err" id="err-fbmsg">⚠ Message cannot be empty.</div></div>
+    <button class="btn-submit" onclick="validateFeedback()">Send Feedback →</button>
+    <div class="success-msg" id="fb-success">✅ Thank you for your feedback! Our team will respond within 24 hours.</div>
+  </div>
+ 
+  <!-- RECENT FEEDBACK DISPLAY -->
+  <div class="feedback-reviews">
+    <div class="reviews-title">💬 Recent Feedback from Our Farmers</div>
+    <div class="reviews-grid" id="reviewsGrid"></div>
+  </div>
+</section>
+ 
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="f-logo">🌿 Krishi<span>Mitra</span></div>
+  <div class="f-links">
+    <a href="#home">Home</a><a href="#about">About</a><a href="#crops">Crop Guide</a>
+    <a href="#services">Services</a><a href="#login">Login</a>
+    <a href="#register">Register</a><a href="#feedback">Feedback</a>
+  </div>
+  <p>© 2026 KrishiMitra – Smart Agriculture Portal. All rights reserved.</p>
+  <p style="margin-top:6px;font-size:.78rem;">Empowering Indian Farmers through Technology 🇮🇳 | Data Source: Agmarknet, IMD, ICAR, MoAFW</p>
+</footer>
+ 
+<!-- ── CROP MODAL ── -->
+<div class="crop-modal-overlay" id="cropModal" onclick="closeModal(event)">
+  <div class="crop-modal" id="cropModalInner">
+    <div class="modal-hero">
+      <img id="mImg" src="" alt=""/>
+      <div class="modal-hero-overlay"></div>
+      <div class="modal-hero-title">
+        <div class="badge-season" id="mSeason"></div>
+        <h2 id="mName"></h2>
+        <div id="mScientific" style="color:rgba(255,255,255,.7);font-size:.85rem;font-style:italic;margin-top:3px;"></div>
+      </div>
+      <button class="modal-close" onclick="document.getElementById('cropModal').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-tabs">
+        <button class="tab-btn active" onclick="switchTab('overview')">📋 Overview</button>
+        <button class="tab-btn" onclick="switchTab('growing')">🌱 Growing Guide</button>
+        <button class="tab-btn" onclick="switchTab('nutrition')">🧪 Soil & Nutrition</button>
+        <button class="tab-btn" onclick="switchTab('market')">💰 Market Info</button>
+      </div>
+      <div id="tab-overview" class="tab-content active"></div>
+      <div id="tab-growing" class="tab-content"></div>
+      <div id="tab-nutrition" class="tab-content"></div>
+      <div id="tab-market" class="tab-content"></div>
+    </div>
+  </div>
+</div>
+ 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// ══════════════════════════════
+//  CROP DATA
+// ══════════════════════════════
+const crops = [
+  {
+    name:"Wheat (Gehun)", scientific:"Triticum aestivum", emoji:"🌾",
+    season:"Rabi | Nov – Apr", img:"https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=600&q=80",
+    shortDesc:"India's staple food crop, grown in 31M ha. Cool climate, well-drained loamy soil.",
+    overview:{
+      desc:"Wheat is India's second most important cereal crop after rice, contributing about 34% of total foodgrain production. India is the world's 2nd largest producer of wheat with 107 million tonnes production (2024-25). Punjab, Haryana, Uttar Pradesh, Madhya Pradesh, and Rajasthan are the major producing states.",
+      facts:[
+        {l:"Crop Type",v:"Cereal / Rabi"},
+        {l:"Duration",v:"120–150 days"},
+        {l:"Temperature",v:"15–22°C"},
+        {l:"Rainfall",v:"450–650 mm"},
+        {l:"India Rank",v:"2nd globally"},
+        {l:"MSP 2024–25",v:"₹2,275/quintal"}
+      ],
+      tags:["Rabi Crop","Bread Wheat","Hard Wheat","Durum"]
+    },
+    growing:{
+      steps:[
+        "Land Preparation: Deep plough 2–3 times to fine tilth. Add 8–10 tonnes of FYM per acre before last ploughing.",
+        "Sowing Time: October 15 – November 15 for timely sowing; upto December 15 for late sowing (short-duration varieties).",
+        "Seed Rate: 40–45 kg/acre for timely sowing; 50–55 kg/acre for late sowing. Treat seed with Carbendazim 2g/kg.",
+        "Irrigation: 5–6 irrigations needed. Critical stages — CRI (21 days), tillering (42 days), jointing, flowering, milky grain stage.",
+        "Weed Management: Apply Clodinafop 60g a.i./ha or Sulfosulfuron 25g a.i./ha at 30–35 DAS for narrow-leaf weeds.",
+        "Pest Management: Aphids — spray Thiamethoxam 25 WG @ 100g/ha. Yellow rust — spray Propiconazole 25 EC.",
+        "Harvest: Crop ready when moisture < 14%. Combine harvester recommended. Avoid over-drying."
+      ]
+    },
+    nutrition:{
+      ph:"6.0 – 7.5", soilType:"Sandy Loam to Clay Loam",
+      npk:{n:80, p:60, k:40},
+      deficiencies:["Zinc deficiency common — apply ZnSO₄ @ 25 kg/ha","Iron deficiency in alkaline soils — spray FeSO₄ 0.5%","Boron deficiency reduces grain filling"]
+    },
+    market:{
+      msp:"₹2,275/quintal (2024–25)", avgPrice:"₹2,280–2,450/quintal",
+      topMarkets:["Hapur (UP)","Khanna (Punjab)","Indore (MP)","Jaipur (RJ)"],
+      export:"India exported 47.45 lakh MT of wheat worth ₹9,282 Cr in 2022–23.",
+      tip:"Sell between March–April at harvest peak for best local price; or store in CWC warehouses and sell in June–July."
+    }
+  },
+  {
+    name:"Rice (Dhan)", scientific:"Oryza sativa", emoji:"🍚",
+    season:"Kharif | Jun – Nov", img:"https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=600&q=80",
+    shortDesc:"India's most consumed staple crop. Grown in 44M ha with 136M tonne production.",
+    overview:{
+      desc:"Rice is India's most important food crop, cultivated in 44 million hectares. West Bengal, Uttar Pradesh, Punjab, Andhra Pradesh, and Tamil Nadu are major producers. India is the world's largest exporter of rice, exporting 21.2 million MT in 2023 worth ₹80,000 crore.",
+      facts:[{l:"Crop Type",v:"Cereal / Kharif"},{l:"Duration",v:"90–150 days"},{l:"Temperature",v:"20–35°C"},{l:"Water Req.",v:"1200–2000 mm"},{l:"Export Rank",v:"#1 globally"},{l:"MSP 2024–25",v:"₹2,300/quintal"}],
+      tags:["Kharif Crop","Paddy","Basmati","IR-36","Sona Masoori"]
+    },
+    growing:{
+      steps:[
+        "Nursery Preparation: Raise nursery in puddled beds. Sow pre-germinated seeds @ 50g/m². Use 25–30 day old seedlings.",
+        "Transplanting: Maintain 20×15 cm spacing. 2–3 seedlings per hill. Transplant at 2–3 cm depth.",
+        "Water Management: Maintain 2–5 cm standing water during vegetative phase. Allow soil to dry at maturity.",
+        "Fertilizer: Apply N:P:K @ 120:60:60 kg/ha. Split N — 50% basal, 25% at tillering, 25% at panicle initiation.",
+        "Pest Management: BPH (brown planthopper) — use resistant varieties or spray Imidacloprid 17.8 SL.",
+        "Blast Disease: Spray Tricyclazole 75 WP @ 0.6g/litre at booting stage.",
+        "Harvest: Drain field 10 days before harvest. Combine or mechanical threshing at 18–20% moisture."
+      ]
+    },
+    nutrition:{
+      ph:"5.5 – 7.0", soilType:"Heavy Clay / Clayey Loam (water-retentive)",
+      npk:{n:90, p:60, k:60},
+      deficiencies:["Zinc deficiency most common — basal ZnSO₄ 25 kg/ha","Sulfur deficiency in sandy soils","Silicon important for lodging resistance — apply slag @ 2 t/ha"]
+    },
+    market:{
+      msp:"₹2,300/quintal (2024–25)", avgPrice:"₹2,300–4,800/quintal (Basmati premium)",
+      topMarkets:["Karnal (Haryana)","Amritsar (Punjab)","Nellore (AP)","Thanjavur (TN)"],
+      export:"India exported 21.2 MMT rice in 2023 — highest ever, worth ₹79,682 Cr.",
+      tip:"Basmati varieties fetch 2–3× premium. Contract farming with exporters gives assured price."
+    }
+  },
+  {
+    name:"Tomato (Tamatar)", scientific:"Solanum lycopersicum", emoji:"🍅",
+    season:"All Seasons (Oct–Mar best)", img:"https://images.unsplash.com/photo-1518977822534-7049a61ee0c2?w=600&q=80",
+    shortDesc:"India's most consumed vegetable. High value, 90-day crop with excellent returns.",
+    overview:{
+      desc:"Tomato is India's most important vegetable crop with 20.9 million MT production from 0.88 million ha (NHB 2024). Andhra Pradesh, Karnataka, Maharashtra, Odisha, and Gujarat are major producers. Price volatility is high — ₹5/kg to ₹200/kg within the same year.",
+      facts:[{l:"Crop Type",v:"Vegetable / Solanaceae"},{l:"Duration",v:"70–90 days (transplant to harvest)"},{l:"Temperature",v:"21–27°C"},{l:"pH Range",v:"6.0–7.0"},{l:"Production",v:"20.9 MMT (2024)"},{l:"Water Req.",v:"400–600 mm"}],
+      tags:["Hybrid","Open Pollinated","Determinate","Indeterminate","Cherry Tomato"]
+    },
+    growing:{
+      steps:[
+        "Variety Selection: For long shelf life — Arka Rakshak, NS 585. For fresh market — Pusa Ruby. For processing — Roma.",
+        "Nursery: Sow in pro-trays with cocopeat media. Germination in 7–10 days. Transplant at 25–30 days.",
+        "Spacing: 60×45 cm (single row) or 90×45 cm (double row with support). Staking required for indeterminate types.",
+        "Irrigation: Drip irrigation @ 4–6 mm/day. Avoid overhead irrigation to reduce foliar diseases.",
+        "Fertilizer: N:P:K = 120:80:80 kg/ha. Fertigation schedule over 75 days. Calcium spray (0.5%) for blossom end rot.",
+        "Disease Management: Early blight — Mancozeb 75 WP; Late blight — Metalaxyl MZ; Leaf curl virus — control whitefly vector with yellow sticky traps.",
+        "Harvest: Pick at breaker to light-red stage for distant markets; full-red for local markets. 8–12 pickings possible."
+      ]
+    },
+    nutrition:{
+      ph:"6.0 – 7.0", soilType:"Sandy Loam to Clay Loam, well-drained",
+      npk:{n:85, p:70, k:90},
+      deficiencies:["Calcium deficiency → blossom end rot — apply CaCl₂ 0.5% spray","Magnesium deficiency → interveinal chlorosis — apply MgSO₄ 0.5%","Boron deficiency → hollow fruit — apply Borax 0.2%"]
+    },
+    market:{
+      msp:"No MSP (market-driven)", avgPrice:"₹800–3,500/quintal (highly variable)",
+      topMarkets:["Kolar (Karnataka)","Nashik (Maharashtra)","Madanapalle (AP)","Pune APMC"],
+      export:"India exported 1.77 lakh MT tomatoes in 2022–23 worth ₹502 Cr.",
+      tip:"Sell through e-NAM portal or FPO aggregation to get 15–20% better price than local arhatiyas."
+    }
+  },
+  {
+    name:"Cotton (Kapas)", scientific:"Gossypium hirsutum", emoji:"☁️",
+    season:"Kharif | Apr – Dec", img:"C:\Users\manivannan\Downloads\prooo\asse\cotton.jpg",
+    shortDesc:"India's 'White Gold'. 12.5M ha cultivation. Bt Cotton dominates 95% area.",
+    overview:{
+      desc:"India is the world's largest producer of cotton with 12.5 million ha under cultivation. Gujarat, Maharashtra, Telangana, and Punjab are major states. Bt Cotton covers over 95% of area. India's cotton production is 316 lakh bales (2023–24), with target of 360 lakh bales by 2025.",
+      facts:[{l:"Crop Type",v:"Cash / Fibre Crop"},{l:"Duration",v:"150–180 days"},{l:"Temperature",v:"21–35°C"},{l:"Rainfall",v:"600–1200 mm"},{l:"MSP",v:"₹7,121/quintal (long staple)"},{l:"Global Rank",v:"#1 producer"}],
+      tags:["Bt Cotton","Desi Cotton","Long Staple","Short Staple","Kharif"]
+    },
+    growing:{
+      steps:[
+        "Land Prep: Deep black soil, plough to 30 cm. Add 10 tonnes FYM per ha. Raised bed or flat sowing both work.",
+        "Sowing: April–June depending on region. Spacing 90×45 cm (Bt) or 60×30 cm (desi). Seed rate 1.5 packets/acre (Bt).",
+        "Irrigation: 6–8 irrigations. Critical at squaring, flowering, and boll development. Avoid waterlogging.",
+        "Nutrient: N:P:K = 80:40:40 kg/ha + micronutrients. Apply N in 3 splits. Foliar spray of boron at flowering.",
+        "Pest Management: Pink bollworm — deploy pheromone traps. Whitefly — Spiromesifen 22.9 SC. Sucking pests — Neem oil 2%.",
+        "Weed Control: Pre-emergence pendimethalin 1 kg a.i./ha + one hand weeding at 30 DAS.",
+        "Harvest: Pick 3–4 times when bolls fully open. Avoid harvesting on wet/rainy days. Proper drying needed."
+      ]
+    },
+    nutrition:{
+      ph:"6.0 – 8.0", soilType:"Deep Black (Regur) / Medium Black Cotton Soil",
+      npk:{n:75, p:55, k:60},
+      deficiencies:["Zinc deficiency in alkaline soil — ZnSO₄ 25 kg/ha","Boron deficiency causes boll shedding — borax 10 kg/ha","Iron chlorosis in calcareous soil — foliar spray 0.5% FeSO₄"]
+    },
+    market:{
+      msp:"₹7,121/quintal (long staple), ₹6,620/quintal (medium staple) 2024-25",
+      avgPrice:"₹6,500–8,200/quintal (market variable)",
+      topMarkets:["Rajkot (Gujarat)","Yavatmal (Maharashtra)","Adilabad (Telangana)","Sirsa (Haryana)"],
+      export:"India exported 16 lakh bales of cotton in 2022–23 worth ₹19,000 Cr.",
+      tip:"Join Cotton Corporation of India (CCI) procurement scheme for assured MSP. Ginning partnership increases margins."
+    }
+  },
+  {
+    name:"Onion (Pyaz)", scientific:"Allium cepa", emoji:"🧅",
+    season:"Rabi & Kharif | Year-round", img:"https://images.unsplash.com/photo-1508747703725-719777637510?w=600&q=80",
+    shortDesc:"India exports 25+ lakh MT onion annually. Price-sensitive and strategically important vegetable.",
+    overview:{
+      desc:"India is the world's 2nd largest producer of onion with 25.66 million MT production (2023–24). Maharashtra's Nashik district produces 35% of India's onion. The crop is grown in 3 seasons — Kharif, late Kharif, and Rabi. Rabi onion (March–May harvest) has longest shelf life and fetches best export price.",
+      facts:[{l:"Crop Type",v:"Vegetable / Bulb crop"},{l:"Duration",v:"90–120 days"},{l:"Temperature",v:"13–30°C"},{l:"pH Range",v:"6.0–7.5"},{l:"Production",v:"25.66 MMT (2024)"},{l:"Export",v:"25+ lakh MT/year"}],
+      tags:["Rabi Onion","Kharif Onion","Red Onion","White Onion","Export Grade"]
+    },
+    growing:{
+      steps:[
+        "Varieties: Bhima Kiran, Bhima Raj, N-2-4-1 (Nashik), Arka Niketan for Rabi; Agrifound Dark Red for Kharif.",
+        "Nursery: Sow seeds in 6-metre raised beds. 8–10 kg seed/ha. Seedlings ready in 45–50 days.",
+        "Transplanting: 15×10 cm spacing. Plant in the evening. Irrigate immediately after transplanting.",
+        "Fertilizer: 100:50:50 kg NPK/ha. Apply phosphorus and potassium as basal. Nitrogen in 3 splits.",
+        "Irrigation: Drip recommended — 3–4 mm/day. Stop irrigation 10 days before harvest for proper curing.",
+        "Disease: Purple blotch — Mancozeb 0.25%; Basal rot — Carbendazim 0.1% drench at transplanting.",
+        "Harvest: When 50% tops fall. Cure in field 5–7 days before storage in ventilated onion crates."
+      ]
+    },
+    nutrition:{
+      ph:"6.0 – 7.5", soilType:"Sandy Loam / Medium Black — well drained",
+      npk:{n:80, p:50, k:60},
+      deficiencies:["Sulfur deficiency reduces pungency — apply gypsum 200 kg/ha","Zinc deficiency causes twisting of leaves","Boron deficiency causes internal browning — borax 10 kg/ha"]
+    },
+    market:{
+      msp:"No MSP (NAFED buffer stock intervention at ₹800–1,200/quintal)",
+      avgPrice:"₹400–4,500/quintal (highly volatile)",
+      topMarkets:["Lasalgaon (MH)","Pimpalgaon (MH)","Mahuva (Gujarat)","Bellary (Karnataka)"],
+      export:"India exported 25.2 lakh MT onion worth ₹5,894 Cr in 2022–23 to Bangladesh, Malaysia, Sri Lanka.",
+      tip:"Rabi onion stored in ventilated cold-store fetches ₹800–1,000 extra per quintal by Aug–Sep when prices peak."
+    }
+  },
+  {
+    name:"Potato (Aloo)", scientific:"Solanum tuberosum", emoji:"🥔",
+    season:"Rabi | Oct – Feb", img:"https://images.unsplash.com/photo-1518977676405-d7af23699bc5?w=600&q=80",
+    shortDesc:"3rd most important food crop. 56 MMT production. UP alone produces 35% of India's potatoes.",
+    overview:{
+      desc:"India is the world's 2nd largest potato producer with 56.17 million MT production (2023–24) from 2.23 million ha. Uttar Pradesh (35%), West Bengal (22%), Bihar, and Punjab are major producers. The crop has major industrial demand — chips, French fries, starch — driving premium contract farming.",
+      facts:[{l:"Crop Type",v:"Vegetable / Tuber Crop"},{l:"Duration",v:"70–120 days"},{l:"Temperature",v:"15–25°C"},{l:"pH Range",v:"5.2–6.4"},{l:"Production",v:"56.17 MMT (2024)"},{l:"MSP",v:"No MSP — ₹600–2,500/quintal market"}],
+      tags:["Table Potato","Processing Potato","Seed Potato","Kufri Jyoti","Kufri Pukhraj"]
+    },
+    growing:{
+      steps:[
+        "Seed Selection: Use certified disease-free seed tubers 30–40g size. Varieties — Kufri Jyoti, Kufri Pukhraj, Kufri Bahar.",
+        "Land Prep: Sandy loam soil, fine tilth. Ridge and furrow method — 50–60 cm row spacing, 20–25 cm plant spacing.",
+        "Planting: October 10–31 (North India). Plant at 5–8 cm depth on ridges. Pre-plant FYM 25 t/ha.",
+        "Fertilizer: 180:120:120 kg NPK/ha. Full P and K as basal; N in 2 splits at planting and hilling.",
+        "Irrigation: 8–10 irrigations. Critical at stolon initiation and tuber bulking. Stop 10 days before harvest.",
+        "Hilling: 4 weeks after planting, earth up around plants to prevent greening of tubers.",
+        "Harvest: Tops dry/cut 10 days before harvest. Machine or manual harvesting. Avoid harvesting during frost."
+      ]
+    },
+    nutrition:{
+      ph:"5.2 – 6.4", soilType:"Sandy Loam / Light Loamy — well drained, loose",
+      npk:{n:90, p:80, k:90},
+      deficiencies:["Potassium most critical for tuber quality — deficiency causes internal browning","Calcium deficiency causes hollow heart","Magnesium deficiency — spray MgSO₄ 0.5% at tuber initiation"]
+    },
+    market:{
+      msp:"No MSP", avgPrice:"₹600–2,500/quintal",
+      topMarkets:["Agra (UP)","Hathras (UP)","Jalpaiguri (WB)","Jalandhar (Punjab)"],
+      export:"India exported 4.43 lakh MT potato worth ₹636 Cr in 2022–23 to Sri Lanka, Nepal, Bangladesh.",
+      tip:"PepsiCo, ITC, and Balaji contract farming gives ₹1,800–2,200/quintal assured price for processing grade."
+    }
+  },
+  {
+    name:"Brinjal (Baingan)", scientific:"Solanum melongena", emoji:"🍆",
+    season:"All Seasons (Sep–Jan best)", img:"https://images.unsplash.com/photo-1587132137056-bfbf0166836e?w=600&q=80",
+    shortDesc:"India's 2nd largest vegetable. 13.4 MMT production. Highly adaptable across all agro-climatic zones.",
+    overview:{
+      desc:"Brinjal (Eggplant) is grown across all states of India in 0.73 million ha producing 13.4 million MT (NHB 2024). West Bengal, Odisha, Bihar, Gujarat, and Maharashtra are major producers. It is the most consumed vegetable after potato and tomato in Indian households. Bt Brinjal is approved in Bangladesh but India uses hybrid varieties.",
+      facts:[{l:"Crop Type",v:"Vegetable / Solanaceae"},{l:"Duration",v:"45–90 days (transplant to harvest)"},{l:"Temperature",v:"22–32°C"},{l:"pH Range",v:"5.5–6.8"},{l:"Production",v:"13.4 MMT (2024)"},{l:"Harvest",v:"10–15 picks possible"}],
+      tags:["Purple Brinjal","Long Brinjal","Round Brinjal","Hybrid","Open Pollinated"]
+    },
+    growing:{
+      steps:[
+        "Varieties: Pusa Purple Cluster, Arka Nidhi, Arka Shirish. Hybrid — MHBH 10, Naveen. For heat tolerance — Annamalai.",
+        "Nursery: Raised beds. Seed rate 400–500g/ha. Seedlings ready in 25–30 days. Harden before transplanting.",
+        "Transplanting: 60×60 cm (round type), 75×60 cm (long type). Transplant in evening. Irrigate after planting.",
+        "Fertilizer: 150:75:75 kg NPK/ha. Apply full P and K as basal, N in 3 equal splits at 30, 60, 90 days.",
+        "Pest Management: Shoot and Fruit Borer (major pest) — Spinosad 45 SC 0.15 ml/L; pheromone traps @ 20/ha.",
+        "Disease: Phomopsis blight — Copper Oxychloride 0.3%; Wilt — Carbendazim drench 0.1%.",
+        "Harvest: Pick fruits at tender stage (every 5–7 days). Delay causes seedy, spongy fruits. 10–15 pickings possible."
+      ]
+    },
+    nutrition:{
+      ph:"5.5 – 6.8", soilType:"Sandy Loam to Clay Loam, well-drained, rich in OM",
+      npk:{n:85, p:65, k:70},
+      deficiencies:["Iron deficiency in alkaline soil — FeSO₄ spray 0.5%","Zinc deficiency causes small leaves — ZnSO₄ 0.5% spray","Calcium for fruit firmness — CaCl₂ 0.5% spray"]
+    },
+    market:{
+      msp:"No MSP", avgPrice:"₹500–2,000/quintal",
+      topMarkets:["Shalimar (Delhi)","Vashi (Mumbai)","Kolar (Karnataka)","Kolkata Market Complex"],
+      export:"Limited export — mainly to neighboring countries. Local consumption dominant.",
+      tip:"Grow long purple brinjal varieties as they fetch 30–40% premium over round types in metro markets."
+    }
+  },
+  {
+    name:"Cauliflower (Phool Gobhi)", scientific:"Brassica oleracea var. botrytis", emoji:"🥦",
+    season:"Rabi | Sep – Feb (Early: Aug–Oct)", img:"https://images.unsplash.com/photo-1613743983303-b3e89f8a2b80?w=600&q=80",
+    shortDesc:"High-value vegetable grown in 0.44M ha. 9.4 MMT production. India is world's 2nd largest producer.",
+    overview:{
+      desc:"India is the world's 2nd largest producer of cauliflower with 9.4 million MT from 0.44 million ha. Bihar, West Bengal, UP, Odisha, and Maharashtra are top producers. The crop has 3 seasons — early, main, and late — allowing year-round cultivation in staggered manner for assured income.",
+      facts:[{l:"Crop Type",v:"Cole Crop / Brassica"},{l:"Duration",v:"60–120 days"},{l:"Temperature",v:"13–18°C"},{l:"pH Range",v:"6.0–7.0"},{l:"Production",v:"9.4 MMT (2024)"},{l:"Seasons",v:"Early, Main, Late"}],
+      tags:["Early Season","Main Season","Late Season","Hybrid","OP Variety"]
+    },
+    growing:{
+      steps:[
+        "Variety: Early — Pusa Katki, Pusa Meghna; Main — Pusa Sharad, Snowball-16; Late — Pusa Snowball K-1.",
+        "Nursery: Raise seedlings in 6m × 1m raised beds. 400–500g seed/ha. Transplant at 25–30 days.",
+        "Spacing: 45×45 cm (early), 60×45 cm (main/late season). Transplant in evening, mulch soil.",
+        "Fertilizer: 120:60:60 kg NPK/ha. Apply boron 1.5 kg/ha as basal for prevention of hollow stem.",
+        "Irrigation: 10–12 irrigations. Critical at curd initiation (35–40 days). Avoid drought at this stage.",
+        "Blanching: Tie outer leaves over developing curd to protect from sunlight (OP varieties). Hybrids are self-blanching.",
+        "Harvest: Cut curd when compact, firm, white. Delayed harvest causes ricey/loose curd. One harvest per plant."
+      ]
+    },
+    nutrition:{
+      ph:"6.0 – 7.0", soilType:"Sandy Loam to Clay Loam, well-drained, rich in OM",
+      npk:{n:80, p:60, k:70},
+      deficiencies:["Boron deficiency causes hollow stem and whiptail — apply Borax 10 kg/ha basal","Molybdenum deficiency causes whiptail — Na-molybdate 0.5 kg/ha","Calcium needed for compact curd formation"]
+    },
+    market:{
+      msp:"No MSP", avgPrice:"₹400–2,500/quintal",
+      topMarkets:["Patna (Bihar)","Kolkata (WB)","Agra (UP)","Hubli (Karnataka)"],
+      export:"India exported 0.54 lakh MT worth ₹42 Cr in 2022–23.",
+      tip:"Stagger planting every 2 weeks for continuous supply and steady income rather than glut pricing."
+    }
+  },
+  {
+    name:"Maize (Makka)", scientific:"Zea mays", emoji:"🌽",
+    season:"Kharif & Rabi | Jun–Sep / Nov–Mar", img:"https://images.unsplash.com/photo-1519162808019-7de1683fa2ad?w=600&q=80",
+    shortDesc:"Versatile food, feed & industry crop. 34 MMT production. Growing demand from poultry and ethanol sectors.",
+    overview:{
+      desc:"Maize is India's 3rd most important cereal with 34 million MT production in 2023–24. Karnataka, Telangana, Maharashtra, Bihar, and Rajasthan are top producers. 50% of maize goes to poultry feed, 25% for starch/ethanol, and 25% for human consumption. Ethanol blending programme (EBP) has boosted demand significantly.",
+      facts:[{l:"Crop Type",v:"Cereal / Kharif+Rabi"},{l:"Duration",v:"85–110 days"},{l:"Temperature",v:"21–27°C"},{l:"Rainfall",v:"600–900 mm"},{l:"Production",v:"34 MMT (2024)"},{l:"MSP",v:"₹2,090/quintal"}],
+      tags:["Kharif Maize","Rabi Maize","Sweet Corn","Baby Corn","Popcorn","Fodder Maize"]
+    },
+    growing:{
+      steps:[
+        "Variety: Hybrid — Pioneer 30V92, DKC 7074; OPV — Ganga-5; Baby corn — HIM-129; Sweet corn — VIMH-701.",
+        "Sowing: June–July (Kharif), October–November (Rabi). 60×20 cm spacing. Seed rate 18–20 kg/ha.",
+        "Fertilizer: 150:60:60 kg NPK/ha. Apply 1/3 N + full P + K as basal; 1/3 N at knee-high; 1/3 N at tasselling.",
+        "Irrigation: 6–7 irrigations. Critical at germination, knee-high, tasselling, silking, and grain filling.",
+        "Weed Management: Atrazine 1.5 kg a.i./ha as pre-emergence within 3 days of sowing.",
+        "Pest: Fall Army Worm (FAW) — new invasive pest. Use Chlorantraniliprole 18.5 SC @ 0.4 ml/L at whorl stage.",
+        "Harvest: At 32–35% moisture (machine harvest) or fully dry (manual). Store below 14% moisture."
+      ]
+    },
+    nutrition:{
+      ph:"5.8 – 7.0", soilType:"Sandy Loam / Loam — well drained, deep soil",
+      npk:{n:90, p:65, k:65},
+      deficiencies:["Zinc most common — ZnSO₄ 25 kg/ha basal","Sulfur deficiency — yellowing of younger leaves","Iron deficiency in calcareous soil — Fe-EDTA spray 0.5%"]
+    },
+    market:{
+      msp:"₹2,090/quintal (2024–25)", avgPrice:"₹1,900–2,400/quintal",
+      topMarkets:["Gulbarga (Karnataka)","Nizamabad (Telangana)","Davangere (Karnataka)","Sikar (Rajasthan)"],
+      export:"India exported 55 lakh MT maize worth ₹11,453 Cr in 2022–23.",
+      tip:"Sell directly to poultry integrators like Suguna, Venky's for ₹100–150/quintal premium over open market."
+    }
+  },
+  {
+    name:"Spinach (Palak)", scientific:"Spinacia oleracea", emoji:"🥬",
+    season:"Rabi | Sep – Mar (Winter crop)", img:"https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=600&q=80",
+    shortDesc:"Nutrient-dense leafy vegetable. Fast 25-day harvest cycle. High demand in urban markets.",
+    overview:{
+      desc:"Spinach is one of India's most important leafy vegetables, grown in 0.11 million ha producing 1.4 million MT. Delhi, Haryana, Punjab, UP, and Maharashtra are major producers. The crop has an excellent nutritional profile — rich in iron, calcium, folate, and vitamins A and K. Multiple harvesting (3–5 cuts) is possible per crop cycle.",
+      facts:[{l:"Crop Type",v:"Leafy Vegetable"},{l:"Duration",v:"25–30 days (1st cut)"},{l:"Temperature",v:"5–25°C"},{l:"pH Range",v:"6.0–7.5"},{l:"Harvest",v:"3–5 cuts per crop"},{l:"Water Req.",v:"Low — 250–350 mm"}],
+      tags:["Leafy Vegetable","Rabi Crop","Urban Farming","Palak","Baby Spinach"]
+    },
+    growing:{
+      steps:[
+        "Varieties: Pusa Jyoti, Pusa Bharati (bolt-resistant); All Green; Virginia Savoy for baby leaf.",
+        "Sowing: September–March. Direct sowing in rows 20–25 cm apart, thin to 5–8 cm within row.",
+        "Seed Rate: 25–30 kg/ha. Soak seeds 24 hours before sowing for uniform germination.",
+        "Fertilizer: 80 kg N/ha applied in splits with each irrigation. High nitrogen for leafy growth. 40:40 P:K as basal.",
+        "Irrigation: Light, frequent irrigations every 5–7 days. Drip/sprinkler preferred. Avoid overhead in cold weather.",
+        "Harvest: Cut 2.5–3 cm above soil for regrowth (ratoon). 3–5 cuts in a season. Each cut at 25–30 day intervals.",
+        "Post-harvest: Pre-cool immediately. Store at 0–2°C, 95–98% humidity. Shelf life 1–3 weeks."
+      ]
+    },
+    nutrition:{
+      ph:"6.0 – 7.5", soilType:"Sandy Loam to Loam, rich in organic matter",
+      npk:{n:85, p:45, k:50},
+      deficiencies:["Iron deficiency causes interveinal chlorosis — apply FeSO₄ 0.5% foliar","Manganese deficiency — spray 0.5% MnSO₄","Boron deficiency at high pH — borax 5 kg/ha"]
+    },
+    market:{
+      msp:"No MSP", avgPrice:"₹800–3,500/quintal",
+      topMarkets:["Azadpur (Delhi)","Vashi (Mumbai)","Koyambedu (Chennai)","Yeshwanthpur (Bangalore)"],
+      export:"Processed spinach (frozen, paste) exported to Middle East and Europe.",
+      tip:"Supply to modern retail (BigBasket, Reliance Fresh) or restaurant chains for 40–60% premium over mandi."
+    }
+  },
+  {
+    name:"Sugarcane (Ganna)", scientific:"Saccharum officinarum", emoji:"🎋",
+    season:"Year-round | 12–18 months cycle", img:"https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=600&q=80",
+    shortDesc:"India's #1 sugar crop. 5.3M ha, 430 MMT production. SAP is government-fixed minimum price.",
+    overview:{
+      desc:"India is the world's largest consumer and 2nd largest producer of sugarcane with 430 million MT production in 2023–24. Uttar Pradesh, Maharashtra, Karnataka, Tamil Nadu, and Gujarat are the major states. India has 531 sugar mills. Sugarcane is unique — farmers are paid State Advised Price (SAP) fixed by state governments, not MSP.",
+      facts:[{l:"Crop Type",v:"Cash Crop / Perennial"},{l:"Duration",v:"12–18 months (plant); 3–4 ratoon crops"},{l:"Temperature",v:"20–35°C"},{l:"Rainfall",v:"1500–2500 mm or equivalent irrigation"},{l:"SAP 2024–25",v:"₹370/quintal (UP)"},{l:"Production",v:"430 MMT (2024)"}],
+      tags:["Plant Cane","Ratoon","Sugar","Jaggery (Gur)","Ethanol","Bagasse"]
+    },
+    growing:{
+      steps:[
+        "Varieties: Co-0238 (UP), MS-10001 (MH), Co-86032 (TN). Early maturing varieties for ethanol.",
+        "Planting: Trench method, 90 cm row spacing. Sett rate 2.5–3 tonnes/ha (two-budded setts).",
+        "Fertilizer: 250:65:120 kg NPK/ha for plant crop. Apply in multiple splits. Trash mulching for moisture conservation.",
+        "Irrigation: 10–15 irrigations for plant crop. Drip saves 40–50% water with 20–25% yield increase.",
+        "Earthing up: Done at 90–100 days after planting. Prevents lodging, controls weeds.",
+        "Ratoon Management: Cut stubble close to ground. Remove dead stalks. Apply N 25% extra vs plant crop.",
+        "Harvest: At optimum maturity (Pol 16–18%). Use harvesting machines where available. Link to nearest sugar mill."
+      ]
+    },
+    nutrition:{
+      ph:"6.5 – 7.5", soilType:"Deep, well-drained loamy / black soil",
+      npk:{n:85, p:55, k:80},
+      deficiencies:["Iron deficiency in waterlogged soil","Zinc deficiency reduces tonnage — ZnSO₄ 25 kg/ha","Sulfur needed for sucrose synthesis — gypsum 200 kg/ha"]
+    },
+    market:{
+      msp:"SAP: ₹370/quintal (UP 2024–25)", avgPrice:"₹350–420/quintal (varies by state)",
+      topMarkets:["Hapur (UP)","Kolhapur (MH)","Belgaum (Karnataka)","Coimbatore (TN)"],
+      export:"India exported 61.29 lakh MT sugar worth ₹22,940 Cr in 2021–22.",
+      tip:"Convert 10% cane to jaggery (gur) during surplus seasons — jaggery fetches ₹4,000–8,000/quintal vs ₹370 cane price."
+    }
+  }
+];
+ 
+// ══════════════════════════════
+//  RENDER CROP CARDS
+// ══════════════════════════════
+const grid = document.getElementById('cropsGrid');
+crops.forEach((c, i) => {
+  const card = document.createElement('div');
+  card.className = 'crop-card';
+  card.innerHTML = `
+    <img src="${c.img}" alt="${c.name}" loading="lazy"/>
+    <div class="crop-info">
+      <div class="crop-name">${c.emoji} ${c.name}</div>
+      <div class="crop-season">📅 ${c.season}</div>
+      <div class="crop-desc">${c.shortDesc}</div>
+      <div class="crop-click-hint">👆 Click for full details →</div>
+    </div>`;
+  card.onclick = () => openModal(i);
+  grid.appendChild(card);
+});
+ 
+// ══════════════════════════════
+//  MODAL LOGIC
+// ══════════════════════════════
+function openModal(i) {
+  const c = crops[i];
+  document.getElementById('mImg').src = c.img;
+  document.getElementById('mName').textContent = c.emoji + ' ' + c.name;
+  document.getElementById('mScientific').textContent = c.scientific;
+  document.getElementById('mSeason').textContent = '📅 ' + c.season;
+ 
+  // Overview Tab
+  const ov = c.overview;
+  document.getElementById('tab-overview').innerHTML = `
+    <p class="modal-para">${ov.desc}</p>
+    <div class="info-grid">
+      ${ov.facts.map(f=>`<div class="info-card"><div class="ic-label">${f.l}</div><div class="ic-val">${f.v}</div></div>`).join('')}
+    </div>
+    <div class="modal-tag-row">${ov.tags.map(t=>`<span class="modal-tag">${t}</span>`).join('')}</div>`;
+ 
+  // Growing Tab
+  const gr = c.growing;
+  document.getElementById('tab-growing').innerHTML = `
+    <ul class="modal-list">
+      ${gr.steps.map(s=>`<li>${s}</li>`).join('')}
+    </ul>`;
+ 
+  // Nutrition Tab
+  const nu = c.nutrition;
+  document.getElementById('tab-nutrition').innerHTML = `
+    <div class="info-grid" style="margin-bottom:20px;">
+      <div class="info-card"><div class="ic-label">Soil Type</div><div class="ic-val">${nu.soilType}</div></div>
+      <div class="info-card"><div class="ic-label">Optimal pH</div><div class="ic-val">${nu.ph}</div></div>
+    </div>
+    <p class="modal-para"><strong>NPK Requirement (relative intensity):</strong></p>
+    <div class="npk-bar"><div class="npk-label">Nitrogen (N) — ${nu.npk.n} kg/ha</div><div class="bar-wrap"><div class="bar-fill" style="width:${nu.npk.n}%"></div></div></div>
+    <div class="npk-bar"><div class="npk-label">Phosphorus (P) — ${nu.npk.p} kg/ha</div><div class="bar-wrap"><div class="bar-fill" style="width:${nu.npk.p}%"></div></div></div>
+    <div class="npk-bar"><div class="npk-label">Potassium (K) — ${nu.npk.k} kg/ha</div><div class="bar-wrap"><div class="bar-fill" style="width:${nu.npk.k}%"></div></div></div>
+    <p class="modal-para" style="margin-top:20px;"><strong>Common Deficiencies & Corrections:</strong></p>
+    <ul class="modal-list">${nu.deficiencies.map(d=>`<li>${d}</li>`).join('')}</ul>`;
+ 
+  // Market Tab
+  const mk = c.market;
+  document.getElementById('tab-market').innerHTML = `
+    <div class="info-grid">
+      <div class="info-card"><div class="ic-label">MSP / SAP</div><div class="ic-val">${mk.msp}</div></div>
+      <div class="info-card"><div class="ic-label">Market Price</div><div class="ic-val">${mk.avgPrice}</div></div>
+    </div>
+    <p class="modal-para"><strong>Top Trading Mandis:</strong></p>
+    <div class="modal-tag-row">${mk.topMarkets.map(m=>`<span class="modal-tag">📍 ${m}</span>`).join('')}</div>
+    <p class="modal-para" style="margin-top:20px;"><strong>Export Data:</strong> ${mk.export}</p>
+    <div style="background:#e8f5e9;border-radius:12px;padding:16px 18px;margin-top:16px;border-left:4px solid var(--gb);">
+      <strong style="font-size:.85rem;color:var(--gd);">💡 Expert Market Tip:</strong>
+      <p style="font-size:.88rem;color:#444;margin-top:6px;line-height:1.65;">${mk.tip}</p>
+    </div>`;
+ 
+  // Reset tabs
+  document.querySelectorAll('.tab-btn').forEach((b,idx) => b.classList.toggle('active', idx===0));
+  document.querySelectorAll('.tab-content').forEach((t,idx) => t.classList.toggle('active', idx===0));
+ 
+  document.getElementById('cropModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+ 
+function closeModal(e) {
+  if(e.target === document.getElementById('cropModal')) {
+    document.getElementById('cropModal').classList.remove('open');
+    document.body.style.overflow='';
+  }
+}
+ 
+function switchTab(name) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  event.target.classList.add('active');
+}
+ 
+// ══════════════════════════════
+//  SLIDESHOW
+// ══════════════════════════════
+const slides = document.querySelectorAll('.slide');
+const dotsContainer = document.getElementById('dots');
+let current = 0;
+slides.forEach((_, i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0?' active':'');
+  d.onclick = () => goTo(i);
+  dotsContainer.appendChild(d);
+});
+function goTo(n) {
+  slides[current].classList.remove('active');
+  dotsContainer.children[current].classList.remove('active');
+  current = n;
+  slides[current].classList.add('active');
+  dotsContainer.children[current].classList.add('active');
+}
+setInterval(() => goTo((current+1)%slides.length), 4500);
+ 
+// ══════════════════════════════
+//  FEEDBACK SYSTEM
+// ══════════════════════════════
+const defaultFeedbacks = [
+  {name:"Ramesh Patel", email:"r***@gmail.com", msg:"KrishiMitra has completely changed how I farm. The weather forecast saved my tomato crop from unexpected rain last month. Highly recommended to every farmer!", rating:5, date:"May 6, 2026"},
+  {name:"Sunita Devi", email:"s***@yahoo.com", msg:"Mandi prices section is excellent. I got ₹400 extra per quintal on my onions because I waited based on KrishiMitra's market advice. Thank you!", rating:5, date:"May 5, 2026"},
+  {name:"Harpreet Singh", email:"h***@gmail.com", msg:"Crop advisory for wheat is very detailed and accurate. I applied the fertilizer schedule given here and my yield improved by almost 30% this Rabi season.", rating:4, date:"May 4, 2026"}
+];
+ 
+let feedbacks = JSON.parse(localStorage.getItem('krishimitra_feedback') || 'null') || defaultFeedbacks;
+ 
+function renderReviews() {
+  const grid = document.getElementById('reviewsGrid');
+  grid.innerHTML = '';
+  feedbacks.slice(-3).reverse().forEach((fb, idx) => {
+    const stars = '⭐'.repeat(fb.rating);
+    const card = document.createElement('div');
+    card.className = 'review-card';
+    card.style.animationDelay = (idx*0.1)+'s';
+    card.innerHTML = `
+      ${idx===0 ? '<div class="rv-new-badge">LATEST</div>' : ''}
+      <div class="rv-quote">"</div>
+      <div class="rv-msg">${fb.msg}</div>
+      <div class="rv-meta">
+        <div class="rv-avatar">${fb.name.charAt(0)}</div>
+        <div>
+          <div class="rv-name">${fb.name}</div>
+          <div class="rv-date">📅 ${fb.date}</div>
+          <div class="rv-stars">${stars}</div>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+renderReviews();
+ 
+// ══════════════════════════════
+//  FORM VALIDATION
+// ══════════════════════════════
+function showErr(id, show) { document.getElementById(id).style.display = show?'block':'none'; }
+function val(id) { return document.getElementById(id).value.trim(); }
+function isValidEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+function showSuccess(id) {
+  const el = document.getElementById(id);
+  el.style.display='block';
+  setTimeout(()=> el.style.display='none', 5000);
+}
+ 
+function validateLogin() {
+  let ok = true;
+  const u = val('login-user'), p = val('login-pass');
+  showErr('err-luser', !u); if(!u) ok=false;
+  showErr('err-lpass', p.length<6); if(p.length<6) ok=false;
+  if(ok) {
+    showSuccess('login-success');
+    document.getElementById('login-user').value='';
+    document.getElementById('login-pass').value='';
+  }
+}
+ 
+function validateRegister() {
+  let ok = true;
+  const n=val('reg-name'),e=val('reg-email'),s=val('reg-state'),p=val('reg-pass'),cp=val('reg-cpass');
+  showErr('err-rname', !n); if(!n) ok=false;
+  showErr('err-remail', !isValidEmail(e)); if(!isValidEmail(e)) ok=false;
+  showErr('err-rstate', !s); if(!s) ok=false;
+  showErr('err-rpass', p.length<6); if(p.length<6) ok=false;
+  showErr('err-rcpass', p!==cp); if(p!==cp) ok=false;
+  if(ok) {
+    showSuccess('reg-success');
+    ['reg-name','reg-email','reg-pass','reg-cpass'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('reg-state').value='';
+  }
+}
+ 
+function validateFeedback() {
+  let ok = true;
+  const n=val('fb-name'),e=val('fb-email'),m=val('fb-msg');
+  showErr('err-fbname', !n); if(!n) ok=false;
+  showErr('err-fbemail', !isValidEmail(e)); if(!isValidEmail(e)) ok=false;
+  showErr('err-fbmsg', !m); if(!m) ok=false;
+  if(ok) {
+    const rating = parseInt(document.getElementById('fb-rating').value);
+    const today = new Date().toLocaleDateString('en-IN',{year:'numeric',month:'short',day:'numeric'});
+    const newFb = {name:n, email:e.replace(/(.{1}).+(@.+)/, '$1***$2'), msg:m, rating:rating, date:today};
+    feedbacks.push(newFb);
+    if(feedbacks.length > 20) feedbacks = feedbacks.slice(-20);
+    localStorage.setItem('krishimitra_feedback', JSON.stringify(feedbacks));
+    renderReviews();
+    showSuccess('fb-success');
+    ['fb-name','fb-email','fb-msg'].forEach(id=>document.getElementById(id).value='');
+    // Scroll to reviews
+    setTimeout(()=>{document.getElementById('reviewsGrid').scrollIntoView({behavior:'smooth',block:'start'});},500);
+  }
+}
+</script>
+</body>
+</html>
